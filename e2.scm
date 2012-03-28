@@ -1,27 +1,8 @@
-;;;(load "/Users/mlozanov/Documents/extempore/libs/dsp_library.scm")
+;;(load "/Users/mlozanov/Documents/extempore/libs/dsp_library.scm")
 
 (load "/Users/mlozanov/Documents/scheme/openglsetup.scm")
 (load "/Users/mlozanov/Documents/scheme/primitives.scm")
-
-;;; start osc receiver
-(bind-val _level1 double 0.0)
-(bind-val _level2 double 0.0)
-
-(definec osc-receive-8000
-  (lambda (address:i8* types:i8* args:i8*)
-    (let ((data (bitcast args i32*)))
-      (printf "address:%s  type:%s arg1:%f arg2:%lld\n"
-	      address types
-	      (ftod (unswap32f (pref data 0)))
-	      (unswap32i (pref data 1)))
-	  (cond ((= (strcmp address "/1/fader1") 0)
-			 (set! _level1 (ftod (unswap32f (pref data 0)))))
-			((= (strcmp address "/1/fader2") 0)
-			 (set! _level2 (ftod (unswap32f (pref data 0))))))
-	  (printf "+"))))
-
-(io:osc:start-server 8000 "osc-receive-8000" (llvm:get-native-function "osc-receive-8000"))
-;;; osc portion ends
+(load "/Users/mlozanov/Documents/scheme/oscwrapper.scm")
 
 (definec draw-grid
   (let ((width 8.0)
