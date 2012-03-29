@@ -51,7 +51,7 @@
 
 (define osc-receive-8000
   (lambda (timestamp address . args)
-	(println 'port 8000 address '-> args)
+	;;(println 'port 8000 address '-> args)
 
 	;; analyze push buttons
 	(dotimes (i 16)
