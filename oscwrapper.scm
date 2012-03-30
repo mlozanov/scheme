@@ -69,6 +69,50 @@
 (io:osc:start-server 8000 "osc-receive-8000")
 
 
-(_fader14)
-(_push1)
-(_xy-x)
+
+
+
+;; extempore lang
+
+(definec osc-receive-8000
+  (lambda (address:i8* types:i8* args:i8*)
+    (let ((data (bitcast args i32*)))
+	  (let ((a (ftod (unswap32f (pref data 0))))
+			(b (ftod (unswap32f (pref data 1))))
+			(i 0))
+		(printf "address:%s  type:%s arg1:%f arg2:%f\n"
+				address types a b)
+		(cond ((= (strcmp address "/1/fader1") 0)
+			   (set! _fader11 a))
+			  ((= (strcmp address "/1/fader2") 0)
+			   (set! _fader12 a))
+			  ((= (strcmp address "/1/fader3") 0)
+			   (set! _fader13 a))
+			  ((= (strcmp address "/1/fader4") 0)
+			   (set! _fader14 a))
+			  ((= (strcmp address "/1/fader5") 0)
+			   (set! _fader15 a))
+			  ((= (strcmp address "/1/toggle1") 0)
+			   (set! _toggle11 a))
+			  ((= (strcmp address "/1/toggle2") 0)
+			   (set! _toggle12 a))
+			  ((= (strcmp address "/1/toggle3") 0)
+			   (set! _toggle13 a))
+			  ((= (strcmp address "/1/toggle4") 0)
+			   (set! _toggle14 a))
+			  ((= (strcmp address "/3/toggle1") 0)
+			   (set! _toggle31 a))
+			  ((= (strcmp address "/3/toggle2") 0)
+			   (set! _toggle32 a))
+			  ((= (strcmp address "/3/toggle3") 0)
+			   (set! _toggle33 a))
+			  ((= (strcmp address "/3/toggle4") 0)
+			   (set! _toggle34 a))
+			  ((= (strcmp address "/3/xy") 0)
+			   (aset! _xy 0 a)
+			   (aset! _xy 1 b))))
+		)
+	  (printf "+")))
+
+(io:osc:start-server 8000 "osc-receive-8000" (llvm:get-native-function "osc-receive-8000"))
+
