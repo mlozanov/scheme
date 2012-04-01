@@ -32,3 +32,16 @@
   (lambda ()
 	(gen-gl-targets)))
 
+;; utiliry functions based on fluxus
+(bind-func translate
+  (lambda (x y z)
+    (glTranslated x y z)))
+
+(bind-func rotate
+  (lambda (a x y z)
+    (glRotated a x y z)))
+
+(bind-func color
+  (lambda (r g b a)
+    (glColor4d r g b a)))
+
