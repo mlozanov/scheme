@@ -10,10 +10,10 @@
 
 (definec set-view
   (lambda ()
-    (glViewport 0 0 720 480)
+    (glViewport 0 0 1024 576)
     (glMatrixMode 5889)
     (glLoadIdentity)
-    (gluPerspective 27.0 (/ 720.0 480.0) 0.01 1000.0)
+    (gluPerspective 27.0 (/ 16.0 9.0) 0.01 1000.0)
     (glMatrixMode 5888)
     (glEnable 2929)
 	1))
